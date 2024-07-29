@@ -1,11 +1,16 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_app/bloc/Results/results_bloc.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
+
+
   @override
   Widget build(BuildContext context) {
+    context.read<ResultsBloc>().add(GetTestResults(context: context));
     return Scaffold(
       appBar: AppBar(
         title: Text("Smart Test", style: Theme.of(context).textTheme.headlineSmall),

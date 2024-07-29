@@ -6,9 +6,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/data/remote_repository_impl.dart';
 import 'package:smart_app/presentation/authentication/LoginPage.dart';
+import 'package:smart_app/presentation/authentication/authenticationWrapper.dart';
 import 'package:smart_app/presentation/homepage/Homepage.dart';
 
 import 'bloc/Login/login_bloc.dart';
+import 'bloc/Results/results_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,30 +32,35 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Smart test',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: const TextTheme(
-            bodyMedium: TextStyle(color: Colors.black)
+    return MultiBlocProvider(
+
+      providers: [   BlocProvider(
+        create: (context) => LoginBloc(repository: repository),
+      ),
+        BlocProvider(
+          create: (context) => ResultsBloc(repository: repository)
         ),
-        scaffoldBackgroundColor: const Color(0XFFE9ECF6),
-        appBarTheme: const AppBarTheme(
-            elevation: 0, backgroundColor: Color(0XFFE9ECF6)),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0XFFE9ECF6)),
-        useMaterial3: false,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => LoginBloc(repository: repository),
-          ),
         ],
-        child: const LoginPage(),
+      child: MaterialApp(
+        title: 'Smart test',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: const TextTheme(
+              bodyMedium: TextStyle(color: Colors.black)
+          ),
+          scaffoldBackgroundColor: const Color(0XFFE9ECF6),
+          appBarTheme: const AppBarTheme(
+              elevation: 0, backgroundColor: Color(0XFFE9ECF6)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0XFFE9ECF6)),
+          useMaterial3: false,
+        ),
+        initialRoute: "/",
+        routes: {
+          '/': (context) => const AuthenticationWrapper(),
+          '/login': (context) => const LoginPage(),
+          '/home': (context) => const Homepage(),
+        },
       ),
-      routes: {
-        '/home': (context) => const Homepage(),
-      },
     );
   }
 }
