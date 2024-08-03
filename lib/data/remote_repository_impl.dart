@@ -3,13 +3,14 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:smart_app/Utils/utils.dart';
 import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/domain/dto/login_response_dto.dart';
 import 'package:smart_app/domain/dto/test_results/test_results_response_dto.dart';
 
 class RemoteRepositoryImpl extends RemoteRepository{
   final dio = Dio();
-  final String baseUrl = "http://192.168.0.104:9000";
+
 
   RemoteRepositoryImpl() {
     dio.options.baseUrl = baseUrl;
