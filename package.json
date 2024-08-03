@@ -1,0 +1,23 @@
+{
+  "name": "smart_app",
+  "version": "1.0.0",
+  "description": "smart application",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CharlesMuchogo/Smart_app_web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CharlesMuchogo/Smart_app_web/issues"
+  },
+  "homepage": "https://github.com/CharlesMuchogo/Smart_app_web#readme"
+}
