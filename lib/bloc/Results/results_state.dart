@@ -30,7 +30,7 @@ class ResultsState extends Equatable {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'Results': results,
+      'results': results,
       'status': status.index,
     };
   }
@@ -40,7 +40,6 @@ class ResultsState extends Equatable {
 
     return ResultsState(
       results: List.from((map['results'] as List)),
-      loggedIn: map['loggedIn'],
       status: ResultsStatus.values[index],
     );
   }

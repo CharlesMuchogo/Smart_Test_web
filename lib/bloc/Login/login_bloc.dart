@@ -23,32 +23,29 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
     if (state.status == LoginStatus.initial) {
       emit(state.copyWith(status: LoginStatus.loading));
     }
-
   }
 
   void _onLogin(Login event, Emitter<LoginState> emit) async {
     emit(state.copyWith(status: LoginStatus.loading));
     try {
-
-      LoginResponseDTO response = await repository.login(event.email, event.password);
+      LoginResponseDTO response =
+          await repository.login(event.email, event.password);
       User user = response.user;
       String token = response.token;
 
+      await HydratedBloc.storage.write("token", token);
+      await HydratedBloc.storage.write("firstname", user.firstName);
+      await HydratedBloc.storage.write("email", user.email);
+      await HydratedBloc.storage.write("id", user.id);
+      await HydratedBloc.storage.write("lastName", user.lastName);
+      await HydratedBloc.storage.write("phoneNumber", user.phone);
+      await HydratedBloc.storage.write("status", true);
+      await HydratedBloc.storage.write("profile_photo", user.profilePhoto);
 
-        await HydratedBloc.storage.write("token", token);
-        await HydratedBloc.storage.write("firstname", user.firstName);
-        await HydratedBloc.storage.write("email", user.email);
-        await HydratedBloc.storage.write("id", user.id);
-        await HydratedBloc.storage.write("lastName", user.lastName);
-        await HydratedBloc.storage.write("phoneNumber", user.phone);
-        await HydratedBloc.storage.write("status", true);
-        await HydratedBloc.storage.write("profile_photo", user.profilePhoto);
-
-        emit(state.copyWith(
-            status: LoginStatus.success,
-            message: "Logged in successfully",
-            loggedIn: true));
-
+      emit(state.copyWith(
+          status: LoginStatus.success,
+          message: "Logged in successfully",
+          loggedIn: true));
     } catch (e) {
       log(e.toString());
       emit(state.copyWith(status: LoginStatus.error, message: e.toString()));

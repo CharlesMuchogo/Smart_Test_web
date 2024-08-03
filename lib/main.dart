@@ -33,21 +33,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-
-      providers: [   BlocProvider(
-        create: (context) => LoginBloc(repository: repository),
-      ),
+      providers: [
         BlocProvider(
-          create: (context) => ResultsBloc(repository: repository)
+          create: (context) => LoginBloc(repository: repository),
         ),
-        ],
+        BlocProvider(create: (context) => ResultsBloc(repository: repository)),
+      ],
       child: MaterialApp(
         title: 'Smart test',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          textTheme: const TextTheme(
-              bodyMedium: TextStyle(color: Colors.black)
-          ),
+          textTheme:
+              const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
           scaffoldBackgroundColor: const Color(0XFFE9ECF6),
           appBarTheme: const AppBarTheme(
               elevation: 0, backgroundColor: Color(0XFFE9ECF6)),
@@ -64,5 +61,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

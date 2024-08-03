@@ -15,7 +15,6 @@ class RemoteRepositoryImpl extends RemoteRepository{
     dio.options.baseUrl = baseUrl;
     dio.options.headers = {
       'Content-Type': 'application/json',
-      'Authorization': HydratedBloc.storage.read("token") ?? ""
     };
   }
 
@@ -43,9 +42,16 @@ class RemoteRepositoryImpl extends RemoteRepository{
 
   @override
   Future<TestResultsResponseDTO> getTestResults({required bool all}) async {
+    
     try{
       Response response = await dio.get(
         "/api/mobile/results",
+        options: Options(
+          headers: {
+            'Authorization': HydratedBloc.storage.read("token") ?? ""
+          }
+        )
+
       );
       return TestResultsResponseDTO.fromJson(response.data);
     } on DioException catch (e){

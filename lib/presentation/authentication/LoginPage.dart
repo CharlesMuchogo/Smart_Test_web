@@ -101,12 +101,12 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         content: BlocConsumer<LoginBloc, LoginState>(
                           listener: (context, state) {
-                            if(state.loggedIn){
-                              Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+                            if (state.loggedIn) {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/home', (Route<dynamic> route) => false);
                             }
                           },
                           builder: (context, state) {
-                            
                             if (state.status == LoginStatus.loading) {
                               return Row(
                                 mainAxisAlignment: MainAxisAlignment.center,

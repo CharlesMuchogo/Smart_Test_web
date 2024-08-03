@@ -10,6 +10,7 @@ class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HydratedBloc.storage.read("token") == null
-        ? const LoginPage(): const Homepage();
+        ? const LoginPage()
+        : const Homepage();
   }
 }

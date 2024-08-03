@@ -10,7 +10,7 @@ class TestResult extends Equatable {
   final String partnerResults;
   final String image;
   final String partnerImage;
-  final String careOption;
+  final String? careOption;
   final int userId;
   final String date;
 
@@ -20,7 +20,7 @@ class TestResult extends Equatable {
     required this.partnerResults,
     required this.image,
     required this.partnerImage,
-    required this.careOption,
+    this.careOption,
     required this.userId,
     required this.date,
   });
@@ -37,7 +37,7 @@ class TestResult extends Equatable {
         date,
       ];
 
-
-  factory TestResult.fromJson(Map<String, dynamic> json) => _$TestResultFromJson(json);
+  factory TestResult.fromJson(Map<String, dynamic> json) =>
+      _$TestResultFromJson(json);
   Map<String, dynamic> toJson() => _$TestResultToJson(this);
 }

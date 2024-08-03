@@ -14,4 +14,3 @@ class GetTestResults extends ResultsEvent {
   final BuildContext context;
   const GetTestResults({required this.context});
 }
-

@@ -12,7 +12,7 @@ TestResult _$TestResultFromJson(Map<String, dynamic> json) => TestResult(
       partnerResults: json['partnerResults'] as String,
       image: json['image'] as String,
       partnerImage: json['partnerImage'] as String,
-      careOption: json['careOption'] as String,
+      careOption: json['careOption'] as String?,
       userId: (json['userId'] as num).toInt(),
       date: json['date'] as String,
     );

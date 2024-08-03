@@ -8,7 +8,6 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class Login extends LoginEvent {
   final String email;
 
@@ -26,4 +25,3 @@ class CheckAuthentication extends LoginEvent {
     required this.context,
   });
 }
-

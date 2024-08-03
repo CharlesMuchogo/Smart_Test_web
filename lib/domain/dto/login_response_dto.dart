@@ -16,6 +16,7 @@ class LoginResponseDTO {
     required this.user,
   });
 
-  factory LoginResponseDTO.fromJson(Map<String, dynamic> json) => _$LoginResponseDTOFromJson(json);
+  factory LoginResponseDTO.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseDTOFromJson(json);
   Map<String, dynamic> toJson() => _$LoginResponseDTOToJson(this);
 }

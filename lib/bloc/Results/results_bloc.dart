@@ -5,7 +5,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/domain/dto/test_results/test_results_response_dto.dart';
 
-
 part 'results_event.dart';
 part 'results_state.dart';
 
@@ -15,14 +14,17 @@ class ResultsBloc extends HydratedBloc<ResultsEvent, ResultsState> {
     on<GetTestResults>(_onGetTestResults);
   }
 
-
   void _onGetTestResults(
       GetTestResults event, Emitter<ResultsState> emit) async {
     emit(state.copyWith(status: ResultsStatus.loading));
     try {
-      TestResultsResponseDTO results = await repository.getTestResults(all: false);
+      TestResultsResponseDTO results =
+          await repository.getTestResults(all: false);
 
-      emit(state.copyWith(status: ResultsStatus.loaded, message: results.message, results: results.results.map((e) => e.toJson() ).toList()));
+      emit(state.copyWith(
+          status: ResultsStatus.loaded,
+          message: results.message,
+          results: results.results.map((e) => e.toJson()).toList()));
     } catch (e) {
       emit(state.copyWith(
           status: ResultsStatus.error, message: "Could not submit request"));

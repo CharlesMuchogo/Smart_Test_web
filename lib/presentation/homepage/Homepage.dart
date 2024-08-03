@@ -6,19 +6,30 @@ import 'package:smart_app/bloc/Results/results_bloc.dart';
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     context.read<ResultsBloc>().add(GetTestResults(context: context));
     return Scaffold(
       appBar: AppBar(
-        title: Text("Smart Test", style: Theme.of(context).textTheme.headlineSmall),
+        title: Text("Smart Test",
+            style: Theme.of(context).textTheme.headlineSmall),
         actions: [
-          TextButton(onPressed: null, child: Text("Home", style: Theme.of(context).textTheme.titleMedium)),
-          TextButton(onPressed: null, child: Text("About", style: Theme.of(context).textTheme.titleMedium)),
-          TextButton(onPressed: null, child: Text("Contacts", style: Theme.of(context).textTheme.titleMedium)),
-          TextButton(onPressed: null, child: Text("Clinics", style: Theme.of(context).textTheme.titleMedium)),
+          TextButton(
+              onPressed: null,
+              child:
+                  Text("Home", style: Theme.of(context).textTheme.titleMedium)),
+          TextButton(
+              onPressed: null,
+              child: Text("About",
+                  style: Theme.of(context).textTheme.titleMedium)),
+          TextButton(
+              onPressed: null,
+              child: Text("Contacts",
+                  style: Theme.of(context).textTheme.titleMedium)),
+          TextButton(
+              onPressed: null,
+              child: Text("Clinics",
+                  style: Theme.of(context).textTheme.titleMedium)),
           SizedBox(width: 16),
         ],
       ),
@@ -27,7 +38,6 @@ class Homepage extends StatelessWidget {
         width: double.infinity,
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(horizontal: 12),
-
       ),
     );
   }
