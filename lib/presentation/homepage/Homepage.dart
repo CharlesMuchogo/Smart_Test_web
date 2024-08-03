@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,7 +62,7 @@ class Homepage extends StatelessWidget {
             List<TestResult> results =
                 state.results.map((e) => TestResult.fromJson(e)).toList();
             return SingleChildScrollView(
-              scrollDirection: Axis.vertical,
+              scrollDirection: Axis.horizontal,
               child: DataTable(
                 columns: <DataColumn>[
                   DataColumn(
@@ -120,25 +118,33 @@ class Homepage extends StatelessWidget {
                           .labelLarge
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
+                  ),DataColumn(
+                    label: Text(
+                      'Care Option',
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
                 rows: results
                     .asMap()
-                    .map((index, result) => MapEntry(
-                          index,
-                          DataRow(cells: [
-                            DataCell(Text('${index + 1}')),
-                            DataCell(Text(result.date)),
-                            DataCell(Text(result.results)),
-                            DataCell(
-                              result.results.isNotEmpty
-                                  ?
-                              SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child:  CachedNetworkImage(
+                    .map(
+                      (index, result) => MapEntry(
+                        index,
+                        DataRow(cells: [
+                          DataCell(Text('${index + 1}')),
+                          DataCell(Text(result.date)),
+                          DataCell(Text(result.results)),
+                          DataCell(
+                            result.results.isNotEmpty
+                                ? SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: CachedNetworkImage(
                                           imageUrl: mockImage1Url,
                                           imageBuilder:
                                               (context, imageProvider) =>
@@ -157,27 +163,24 @@ class Homepage extends StatelessWidget {
                                           ),
                                           errorWidget: (context, url, error) =>
                                               const Center(
-                                            child:
-                                            Icon(
+                                            child: Icon(
                                               Icons.image_not_supported,
                                               size: 30,
                                             ),
                                           ),
-                                        )
-
-                                ),
-                              ): Text("N/A"),
-                            ),
-                            DataCell(Text(result.partnerResults)),
-                            DataCell(
-                              result.partnerResults.isNotEmpty
-                                  ?
-                              SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: AspectRatio(
-                                  aspectRatio: 1,
-                                  child:  CachedNetworkImage(
+                                        )),
+                                  )
+                                : Text("N/A"),
+                          ),
+                          DataCell(Text(result.partnerResults)),
+                          DataCell(
+                            result.partnerResults.isNotEmpty
+                                ? SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: CachedNetworkImage(
                                           imageUrl: mockImageUrl,
                                           imageBuilder:
                                               (context, imageProvider) =>
@@ -195,19 +198,24 @@ class Homepage extends StatelessWidget {
                                                 .adaptive(),
                                           ),
                                           errorWidget: (context, url, error) =>
-                                          const Center(
-                                            child:
-                                            Icon(
+                                              const Center(
+                                            child: Icon(
                                               Icons.image_not_supported,
                                               size: 30,
                                             ),
                                           ),
-                                        )
-                                ),
-                              ): Text("N/A"),
-                            ),
-                          ]),
-                        ))
+                                        )),
+                                  )
+                                : Text("N/A"),
+                          ),
+                          DataCell(
+                            result.careOption != null ?
+                              Text(result.careOption!)
+                                : Text("N/A"),
+                          ),
+                        ]),
+                      ),
+                    )
                     .values
                     .toList(),
               ),
