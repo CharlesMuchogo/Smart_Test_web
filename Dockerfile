@@ -6,8 +6,10 @@ RUN apt-get update && apt-get install -y \
     bash curl git openjdk-17-jdk unzip xz-utils zip libglu1-mesa
 
 # Install Flutter
-RUN git clone https://github.com/flutter/flutter.git /flutter
-ENV PATH="/flutter/bin:${PATH}"
+RUN sudo snap install snapd
+
+# Install Flutter
+RUN sudo snap install flutter --classic
 
 # Set the working directory
 WORKDIR /app
