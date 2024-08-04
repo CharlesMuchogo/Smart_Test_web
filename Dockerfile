@@ -3,7 +3,7 @@ FROM debian:latest AS build
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-    bash curl git openjdk-11-jdk unzip xz-utils zip libglu1-mesa
+    bash curl git openjdk-17-jdk unzip xz-utils zip libglu1-mesa
 
 # Install Flutter
 RUN git clone https://github.com/flutter/flutter.git /flutter
