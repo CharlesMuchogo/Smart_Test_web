@@ -102,4 +102,8 @@ fix:
 
 patch:
 		shorebird patch android --target lib/main_production.dart --flavor production
+
+buildImage:
+	sudo docker build -t flutter-web-app .
+
         
