@@ -1,16 +1,13 @@
 # Stage 1: Build the Flutter web app
-FROM alpine:latest AS build
+FROM debian:latest AS build
 
 # Install dependencies
-RUN apk add --no-cache bash curl git openjdk11-jdk
-
-# Set environment variables
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk
-ENV PATH="/usr/lib/jvm/java-11-openjdk/bin:/flutter/bin:${PATH}"
+RUN apt-get update && apt-get install -y \
+    bash curl git openjdk-11-jdk unzip xz-utils zip libglu1-mesa
 
 # Install Flutter
 RUN git clone https://github.com/flutter/flutter.git /flutter
-RUN flutter/bin/flutter doctor
+ENV PATH="/flutter/bin:${PATH}"
 
 # Set the working directory
 WORKDIR /app
@@ -28,8 +25,8 @@ FROM nginx:alpine
 # Copy the build output to the Nginx html directory
 COPY --from=build /app/build/web /usr/share/nginx/html
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80
 
 # Start Nginx when the container launches
 CMD ["nginx", "-g", "daemon off;"]
