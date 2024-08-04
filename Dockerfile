@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     bash curl git openjdk-17-jdk unzip xz-utils zip libglu1-mesa
 
 # Install Flutter
-RUN apt install snapd
+RUN apt install -y snapd
 
 # Install Flutter
 RUN snap install flutter --classic
