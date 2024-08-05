@@ -13,7 +13,7 @@ TestResult _$TestResultFromJson(Map<String, dynamic> json) => TestResult(
       image: json['image'] as String,
       partnerImage: json['partnerImage'] as String,
       careOption: json['careOption'] as String?,
-      userId: (json['userId'] as num).toInt(),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
       date: json['date'] as String,
     );
 
@@ -25,6 +25,6 @@ Map<String, dynamic> _$TestResultToJson(TestResult instance) =>
       'image': instance.image,
       'partnerImage': instance.partnerImage,
       'careOption': instance.careOption,
-      'userId': instance.userId,
       'date': instance.date,
+      'user': instance.user.toJson(),
     };

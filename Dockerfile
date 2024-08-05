@@ -1,31 +1,8 @@
-# Stage 1: Build the Flutter web app
-FROM debian:latest AS build
-
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    bash curl git openjdk-17-jdk unzip xz-utils zip libglu1-mesa
-
-# Install Flutter
-RUN apt install -y snapd
-
-# Install Flutter
-RUN snap install flutter --classic
-
-# Set the working directory
-WORKDIR /app
-
-# Copy the Flutter project files to the container
-COPY . .
-
-# Enable web support and build the web app
-RUN flutter/bin/flutter config --enable-web
-RUN flutter/bin/flutter build web
-
-# Stage 2: Serve the app with Nginx
+# Use the official Nginx image as a base
 FROM nginx:alpine
 
 # Copy the build output to the Nginx html directory
-COPY --from=build /app/build/web /usr/share/nginx/html
+COPY build/web /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80

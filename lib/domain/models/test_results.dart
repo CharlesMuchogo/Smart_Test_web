@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:smart_app/domain/models/user.dart';
 
 part 'test_results.g.dart';
 
@@ -11,8 +12,8 @@ class TestResult extends Equatable {
   final String image;
   final String partnerImage;
   final String? careOption;
-  final int userId;
   final String date;
+  final User user;
 
   const TestResult({
     required this.id,
@@ -21,7 +22,7 @@ class TestResult extends Equatable {
     required this.image,
     required this.partnerImage,
     this.careOption,
-    required this.userId,
+    required this.user,
     required this.date,
   });
 
@@ -33,11 +34,10 @@ class TestResult extends Equatable {
         image,
         partnerImage,
         careOption,
-        userId,
         date,
+        user
       ];
 
-  factory TestResult.fromJson(Map<String, dynamic> json) =>
-      _$TestResultFromJson(json);
+  factory TestResult.fromJson(Map<String, dynamic> json) => _$TestResultFromJson(json);
   Map<String, dynamic> toJson() => _$TestResultToJson(this);
 }

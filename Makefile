@@ -104,6 +104,7 @@ patch:
 		shorebird patch android --target lib/main_production.dart --flavor production
 
 buildImage:
-	sudo docker build -t flutter-web-app .
+	sudo docker build -t charlesmuchogo/smart_app:latest .
+
 
         

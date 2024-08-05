@@ -46,7 +46,7 @@ class RemoteRepositoryImpl extends RemoteRepository{
     
     try{
       Response response = await dio.get(
-        "/api/mobile/results",
+        "/api/mobile/results?all=$all",
         options: Options(
           headers: {
             'Authorization': HydratedBloc.storage.read("token") ?? ""

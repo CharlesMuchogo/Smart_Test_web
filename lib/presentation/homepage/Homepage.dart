@@ -10,6 +10,52 @@ import 'package:smart_app/presentation/components/CustomBox.dart';
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
+  showImageDialog(BuildContext context, String title,  String image) {
+    AlertDialog alert = AlertDialog(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(title),
+        ],
+      ),
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.6,
+        height: MediaQuery.of(context).size.height * 0.6,
+        child: AspectRatio(
+            aspectRatio: 1,
+            child: CachedNetworkImage(
+              imageUrl: image,
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.none,
+                  ),
+                ),
+              ),
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+              errorWidget: (context, url, error) => const Center(
+                child: Icon(
+                  Icons.image_not_supported,
+                  size: 30,
+                ),
+              ),
+            )),
+      ),
+      actions: [],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     context.read<ResultsBloc>().add(GetTestResults(context: context));
@@ -85,6 +131,15 @@ class Homepage extends StatelessWidget {
                   ),
                   DataColumn(
                     label: Text(
+                      'User',
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text(
                       'Results',
                       style: Theme.of(context)
                           .textTheme
@@ -118,7 +173,8 @@ class Homepage extends StatelessWidget {
                           .labelLarge
                           ?.copyWith(fontWeight: FontWeight.bold),
                     ),
-                  ),DataColumn(
+                  ),
+                  DataColumn(
                     label: Text(
                       'Care Option',
                       style: Theme.of(context)
@@ -136,81 +192,101 @@ class Homepage extends StatelessWidget {
                         DataRow(cells: [
                           DataCell(Text('${index + 1}')),
                           DataCell(Text(result.date)),
+                          DataCell(Text(
+                              "${result.user.firstName} ${result.user.lastName}")),
                           DataCell(Text(result.results)),
                           DataCell(
                             result.results.isNotEmpty
-                                ? SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: AspectRatio(
-                                        aspectRatio: 1,
-                                        child: CachedNetworkImage(
-                                          imageUrl: mockImage1Url,
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+                                ? GestureDetector(
+                                    onTap: () {
+                                      showImageDialog(
+                                          context,
+                                          "${result.user.firstName} Result",
+                                          mockImage1Url);
+                                    },
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: CachedNetworkImage(
+                                            imageUrl: mockImage1Url,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                            child: CircularProgressIndicator
-                                                .adaptive(),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              const Center(
-                                            child: Icon(
-                                              Icons.image_not_supported,
-                                              size: 30,
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                              child: CircularProgressIndicator
+                                                  .adaptive(),
                                             ),
-                                          ),
-                                        )),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Center(
+                                              child: Icon(
+                                                Icons.image_not_supported,
+                                                size: 30,
+                                              ),
+                                            ),
+                                          )),
+                                    ),
                                   )
                                 : Text("N/A"),
                           ),
                           DataCell(Text(result.partnerResults)),
                           DataCell(
                             result.partnerResults.isNotEmpty
-                                ? SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: AspectRatio(
-                                        aspectRatio: 1,
-                                        child: CachedNetworkImage(
-                                          imageUrl: mockImageUrl,
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
+                                ? GestureDetector(
+                                    onTap: () {
+                                      showImageDialog(
+                                          context,
+                                          "${result.user.firstName} partner result",
+                                          mockImageUrl);
+                                    },
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: AspectRatio(
+                                          aspectRatio: 1,
+                                          child: CachedNetworkImage(
+                                            imageUrl: mockImageUrl,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          placeholder: (context, url) =>
-                                              const Center(
-                                            child: CircularProgressIndicator
-                                                .adaptive(),
-                                          ),
-                                          errorWidget: (context, url, error) =>
-                                              const Center(
-                                            child: Icon(
-                                              Icons.image_not_supported,
-                                              size: 30,
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                              child: CircularProgressIndicator
+                                                  .adaptive(),
                                             ),
-                                          ),
-                                        )),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Center(
+                                              child: Icon(
+                                                Icons.image_not_supported,
+                                                size: 30,
+                                              ),
+                                            ),
+                                          )),
+                                    ),
                                   )
                                 : Text("N/A"),
                           ),
                           DataCell(
-                            result.careOption != null ?
-                              Text(result.careOption!)
+                            result.careOption != null
+                                ? Text(result.careOption!)
                                 : Text("N/A"),
                           ),
                         ]),

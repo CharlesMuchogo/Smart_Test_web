@@ -47,7 +47,6 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
           message: "Logged in successfully",
           loggedIn: true));
     } catch (e) {
-      log(e.toString());
       emit(state.copyWith(status: LoginStatus.error, message: e.toString()));
     }
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -19,7 +20,7 @@ class ResultsBloc extends HydratedBloc<ResultsEvent, ResultsState> {
     emit(state.copyWith(status: ResultsStatus.loading));
     try {
       TestResultsResponseDTO results =
-          await repository.getTestResults(all: false);
+          await repository.getTestResults(all: true);
 
       emit(state.copyWith(
           status: ResultsStatus.loaded,
