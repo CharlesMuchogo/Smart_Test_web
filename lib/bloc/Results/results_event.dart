@@ -8,8 +8,6 @@ abstract class ResultsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ResultsInitial extends ResultsEvent {}
-
 class GetTestResults extends ResultsEvent {
   final BuildContext context;
   const GetTestResults({required this.context});

@@ -5,7 +5,7 @@ import 'package:smart_app/domain/models/user.dart';
 part 'test_results.g.dart';
 
 @JsonSerializable()
-class TestResult extends Equatable {
+class TestResult {
   final int id;
   final String results;
   final String partnerResults;
@@ -25,18 +25,6 @@ class TestResult extends Equatable {
     required this.user,
     required this.date,
   });
-
-  @override
-  List<Object?> get props => [
-        id,
-        results,
-        partnerResults,
-        image,
-        partnerImage,
-        careOption,
-        date,
-        user
-      ];
 
   factory TestResult.fromJson(Map<String, dynamic> json) => _$TestResultFromJson(json);
   Map<String, dynamic> toJson() => _$TestResultToJson(this);

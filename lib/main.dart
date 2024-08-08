@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:smart_app/bloc/Clinics/clinics_bloc.dart';
 import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/data/remote_repository_impl.dart';
 import 'package:smart_app/presentation/authentication/LoginPage.dart';
@@ -34,10 +35,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => LoginBloc(repository: repository),
-        ),
+        BlocProvider(create: (context) => LoginBloc(repository: repository)),
         BlocProvider(create: (context) => ResultsBloc(repository: repository)),
+        BlocProvider(create: (context) => ClinicsBloc(repository: repository)),
       ],
       child: MaterialApp(
         title: 'Smart test',

@@ -26,5 +26,5 @@ Map<String, dynamic> _$TestResultToJson(TestResult instance) =>
       'partnerImage': instance.partnerImage,
       'careOption': instance.careOption,
       'date': instance.date,
-      'user': instance.user.toJson(),
+      'user': instance.user,
     };
