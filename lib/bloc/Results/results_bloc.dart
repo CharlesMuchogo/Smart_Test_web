@@ -27,7 +27,7 @@ class ResultsBloc extends HydratedBloc<ResultsEvent, ResultsState> {
           results: results.results.map((e) => e.toJson()).toList()));
     } catch (e) {
       emit(state.copyWith(
-          status: ResultsStatus.error, message: "Could not submit request"));
+          status: ResultsStatus.error, message: "Error getting results"));
     }
   }
 

@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_app/bloc/Login/login_bloc.dart';
 import 'package:smart_app/presentation/components/AppButton.dart';
 import 'package:smart_app/presentation/components/AppTextField.dart';
-import 'package:smart_app/presentation/homepage/Homepage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Form(
             key: formKey,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 36, vertical: 32),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

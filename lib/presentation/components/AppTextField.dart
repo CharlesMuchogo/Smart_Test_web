@@ -37,7 +37,7 @@ class _AppTextFieldState extends State<AppTextField> {
           widget.label,
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         TextFormField(
@@ -59,12 +59,12 @@ class _AppTextFieldState extends State<AppTextField> {
             fillColor: Colors.black,
           ),
           obscureText: widget.obscureText,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
           validator: (val) =>
               val!.isEmpty ? "${widget.label} cannot be empty" : null,
           onSaved: (val) => widget.onSaved,
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ],

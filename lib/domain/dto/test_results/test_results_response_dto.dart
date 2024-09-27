@@ -15,5 +15,6 @@ class TestResultsResponseDTO {
 
   factory TestResultsResponseDTO.fromJson(Map<String, dynamic> json) =>
       _$TestResultsResponseDTOFromJson(json);
+      
   Map<String, dynamic> toJson() => _$TestResultsResponseDTOToJson(this);
 }

@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -9,9 +8,8 @@ import 'package:smart_app/domain/dto/clinics/get_clinics_dto.dart';
 import 'package:smart_app/domain/dto/login_response_dto.dart';
 import 'package:smart_app/domain/dto/test_results/test_results_response_dto.dart';
 
-class RemoteRepositoryImpl extends RemoteRepository{
+class RemoteRepositoryImpl extends RemoteRepository {
   final dio = Dio();
-
 
   RemoteRepositoryImpl() {
     dio.options.baseUrl = baseUrl;
@@ -21,8 +19,8 @@ class RemoteRepositoryImpl extends RemoteRepository{
   }
 
   @override
-  Future<LoginResponseDTO> login(String email, String password) async{
-    try{
+  Future<LoginResponseDTO> login(String email, String password) async {
+    try {
       var data = {
         "email": email,
         "password": password,
@@ -32,11 +30,11 @@ class RemoteRepositoryImpl extends RemoteRepository{
         data: data,
       );
       return LoginResponseDTO.fromJson(response.data);
-    } on DioException catch (e){
+    } on DioException catch (e) {
       String? message = e.response?.data["message"].toString();
       log(message.toString());
       throw Exception(message);
-    } catch(e){
+    } catch (e) {
       log(e.toString());
       throw Exception("Something went wrong. Try again");
     }
@@ -44,23 +42,19 @@ class RemoteRepositoryImpl extends RemoteRepository{
 
   @override
   Future<TestResultsResponseDTO> getTestResults({required bool all}) async {
-    
-    try{
-      Response response = await dio.get(
-        "/api/mobile/results?all=false",
-        options: Options(
-          headers: {
-            'Authorization': HydratedBloc.storage.read("token") ?? ""
-          }
-        )
+    log(HydratedBloc.storage.read("token") ?? "");
 
-      );
+    try {
+      Response response = await dio.get("/api/mobile/results?all=$all",
+          options: Options(headers: {
+            'Authorization': HydratedBloc.storage.read("token") ?? ""
+          }));
       return TestResultsResponseDTO.fromJson(response.data);
-    } on DioException catch (e){
+    } on DioException catch (e) {
       String? message = e.response?.data["message"].toString();
       log(message.toString());
       throw Exception(message);
-    } catch(e){
+    } catch (e) {
       log(e.toString());
       throw Exception("Something went wrong. Try again");
     }
@@ -68,25 +62,19 @@ class RemoteRepositoryImpl extends RemoteRepository{
 
   @override
   Future<GetClinicsDto> getClinics() async {
-    try{
-      Response response = await dio.get(
-          "/api/mobile/clinics",
-          options: Options(
-              headers: {
-                'Authorization': HydratedBloc.storage.read("token") ?? ""
-              }
-          )
-
-      );
+    try {
+      Response response = await dio.get("/api/mobile/clinics",
+          options: Options(headers: {
+            'Authorization': HydratedBloc.storage.read("token") ?? ""
+          }));
       return GetClinicsDto.fromJson(response.data);
-    } on DioException catch (e){
+    } on DioException catch (e) {
       String? message = e.response?.data["message"].toString();
       log(message.toString());
       throw Exception(message);
-    } catch(e){
+    } catch (e) {
       log(e.toString());
       throw Exception("Something went wrong. Try again");
     }
   }
-
 }
