@@ -7,18 +7,22 @@ part 'test_results.g.dart';
 class TestResult {
   final int id;
   final String results;
+  final String uuid;
   final String partnerResults;
   final String image;
   final String partnerImage;
   final String? careOption;
+  final String status;
   final String date;
   final User user;
 
   const TestResult({
     required this.id,
+    required this.uuid,
     required this.results,
     required this.partnerResults,
     required this.image,
+    required this.status,
     required this.partnerImage,
     this.careOption,
     required this.user,

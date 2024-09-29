@@ -12,3 +12,9 @@ class GetTestResults extends ResultsEvent {
   final BuildContext context;
   const GetTestResults({required this.context});
 }
+
+class UpdateTestResults extends ResultsEvent {
+  final BuildContext context;
+  final UpdateTestResultsDTO resultsDTO;
+  const UpdateTestResults( {required this.context, required this.resultsDTO});
+}
