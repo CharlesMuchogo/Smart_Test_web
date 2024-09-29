@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,8 +20,10 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
 
   ApprovalStatus selectedApprovalStatus = ApprovalStatus.values.firstWhere(
         (e) => e.label == (result.status),
-    orElse: () => ApprovalStatus.Rejected,
+    orElse: () => ApprovalStatus.Approved,
   );
+
+
 
   showDialog(
     context: context,
@@ -27,7 +31,7 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
       return AlertDialog(
         title: const Text("Edit Results"),
         content: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
+          width: min(MediaQuery.of(context).size.width * 0.6, 500),
           child: StatefulBuilder(
             builder: (context, setState) {
               return Column(
