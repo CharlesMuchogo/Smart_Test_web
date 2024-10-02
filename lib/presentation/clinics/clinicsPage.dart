@@ -35,10 +35,6 @@ class ClinicsPage extends StatelessWidget {
             state.clinics.map((e) => Clinic.fromJson(e)).toList();
 
         return Scaffold(
-          floatingActionButton: const FloatingActionButton(
-            onPressed: null,
-            child: Icon(Icons.add),
-          ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: DataTable(
@@ -99,7 +95,7 @@ class ClinicsPage extends StatelessWidget {
                         DataCell(Text(clinic.name)),
                         DataCell(Text(clinic.address)),
                         DataCell(Text(clinic.contacts)),
-                        DataCell(Text(clinic.active ? "Active" : "Inactive")),
+                        DataCell(Text(!clinic.active ? "Active" : "Inactive")),
                       ]),
                     ),
                   )

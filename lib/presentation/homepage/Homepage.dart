@@ -5,6 +5,8 @@ import 'package:smart_app/bloc/Results/results_bloc.dart';
 import 'package:smart_app/presentation/clinics/clinicsPage.dart';
 import 'package:smart_app/presentation/results/ResultsPage.dart';
 
+import '../users/users_page.dart';
+
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
@@ -15,7 +17,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int activePage = 0;
 
-  List<Widget> pages = [ResusltsPage(), ClinicsPage()];
+  List<Widget> pages = [ResusltsPage(), ClinicsPage(), UsersPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,15 @@ class _HomepageState extends State<Homepage> {
                   });
                 },
                 child: Text("Clinics",
+                    style: Theme.of(context).textTheme.titleMedium)),
+            SizedBox(width: 16),
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    activePage = 2;
+                  });
+                },
+                child: Text("Users",
                     style: Theme.of(context).textTheme.titleMedium)),
             SizedBox(width: 16),
           ],
