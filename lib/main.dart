@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_app/bloc/Clinics/clinics_bloc.dart';
+import 'package:smart_app/bloc/Users/users_bloc.dart';
 import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/data/remote_repository_impl.dart';
 import 'package:smart_app/presentation/authentication/LoginPage.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => LoginBloc(repository: repository)),
         BlocProvider(create: (context) => ResultsBloc(repository: repository)),
         BlocProvider(create: (context) => ClinicsBloc(repository: repository)),
+        BlocProvider(create: (context) => UsersBloc(repository: repository)),
       ],
       child: MaterialApp(
         title: 'Smart test',
@@ -46,11 +48,11 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           textTheme:
               const TextTheme(bodyMedium: TextStyle(color: Colors.black)),
-          scaffoldBackgroundColor: const Color(0XFFE9ECF6),
+          scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(
-              elevation: 0, backgroundColor: Color(0XFFE9ECF6)),
+              elevation: 0, backgroundColor: Colors.white),
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0XFFE9ECF6)),
-          useMaterial3: false,
+          useMaterial3: true,
         ),
         initialRoute: "/",
         routes: {

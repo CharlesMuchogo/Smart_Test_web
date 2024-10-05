@@ -17,7 +17,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int activePage = 0;
 
-  List<Widget> pages = [ResusltsPage(), ClinicsPage(), UsersPage()];
+  List<Widget> pages = [ResultsPage(), ClinicsPage(), UsersPage()];
 
   @override
   Widget build(BuildContext context) {

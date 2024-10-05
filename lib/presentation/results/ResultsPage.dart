@@ -8,10 +8,9 @@ import '../components/CustomBox.dart';
 import 'AppImage.dart';
 import 'EditResultsDialog.dart';
 import 'ImageDialog.dart';
-import 'enums.dart';
 
-class ResusltsPage extends StatelessWidget {
-  const ResusltsPage({super.key});
+class ResultsPage extends StatelessWidget {
+  const ResultsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +44,19 @@ class ResusltsPage extends StatelessWidget {
 
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: _buildColumns(context),
-              rows: _buildRows(context, results),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: DataTable(
+                border: TableBorder(
+                    horizontalInside: BorderSide(
+                  width: 0.4,
+                  color: Colors.grey.shade200,
+                )),
+                headingRowColor: WidgetStateProperty.all(
+                    const Color.fromRGBO(243, 244, 248, 100)),
+                columns: _buildColumns(context),
+                rows: _buildRows(context, results),
+              ),
             ),
           );
         },
@@ -59,13 +68,14 @@ class ResusltsPage extends StatelessWidget {
   List<DataColumn> _buildColumns(BuildContext context) {
     return <DataColumn>[
       _buildColumn(context, 'No.'),
-      _buildColumn(context, 'Date'),
       _buildColumn(context, 'User'),
+      _buildColumn(context, 'Date'),
       _buildColumn(context, 'Results'),
       _buildColumn(context, 'Results Image'),
       _buildColumn(context, 'Partner Results'),
       _buildColumn(context, 'Partner Image'),
       _buildColumn(context, 'Care Option'),
+      _buildColumn(context, 'Status'),
       _buildColumn(context, 'Action'),
     ];
   }
@@ -93,9 +103,9 @@ class ResusltsPage extends StatelessWidget {
               index,
               DataRow(cells: [
                 DataCell(Text('${index + 1}')),
-                DataCell(Text(result.date)),
                 DataCell(
                     Text("${result.user.firstName} ${result.user.lastName}")),
+                DataCell(Text(result.date)),
                 DataCell(Text(result.results)),
                 DataCell(
                   AppImage(
@@ -126,8 +136,11 @@ class ResusltsPage extends StatelessWidget {
                       : const Text("N/A"),
                 ),
                 DataCell(
+                  Text(result.status),
+                ),
+                DataCell(
                   IconButton(
-                    onPressed: (){
+                    onPressed: () {
                       showEditResultsDialog(
                         context,
                         result,

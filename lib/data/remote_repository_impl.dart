@@ -8,6 +8,7 @@ import 'package:smart_app/domain/dto/clinics/get_clinics_dto.dart';
 import 'package:smart_app/domain/dto/login_response_dto.dart';
 import 'package:smart_app/domain/dto/test_results/test_results_response_dto.dart';
 import 'package:smart_app/domain/dto/test_results/update_test_results_response_dto.dart';
+import 'package:smart_app/domain/dto/users/get_users_dto.dart';
 
 import '../domain/dto/test_results/update_test_tesults_dto.dart';
 
@@ -99,6 +100,25 @@ class RemoteRepositoryImpl extends RemoteRepository {
       throw Exception(message);
     } catch (e) {
       log("exception$e");
+      throw Exception("Something went wrong. Try again!");
+    }
+  }
+
+  @override
+  Future<GetUsersDto> getUsers() async {
+    try {
+      Response response = await dio.get("/api/mobile/users",
+          options: Options(
+              headers: {
+                'Authorization': HydratedBloc.storage.read("token") ?? ""
+              }));
+
+      return GetUsersDto.fromJson(response.data);
+    } on DioException catch (e) {
+      String? message = e.response?.data["message"].toString();
+      log(message.toString());
+      throw Exception(message);
+    } catch (e) {
       throw Exception("Something went wrong. Try again!");
     }
   }

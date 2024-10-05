@@ -12,40 +12,43 @@ class AppImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return image.isNotEmpty
-        ? GestureDetector(
-            onTap: onClick,
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: CachedNetworkImage(
-                  imageUrl: "$baseUrl$image",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+        ? Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: GestureDetector(
+              onTap: onClick,
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: CachedNetworkImage(
+                    imageUrl: "$baseUrl$image",
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  placeholder: (context, url) => const Center(
-                    child: SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(),
+                    placeholder: (context, url) => const Center(
+                      child: SizedBox(
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.image,
-                      size: 30,
+                    errorWidget: (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.image,
+                        size: 30,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          )
+        )
         : const Text("N/A");
   }
 }

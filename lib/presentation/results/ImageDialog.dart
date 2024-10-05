@@ -1,5 +1,7 @@
 // image_dialog.dart
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -12,8 +14,8 @@ void showImageDialog(BuildContext context, String title, String imageUrl) {
       ],
     ),
     content: SizedBox(
-      width: MediaQuery.of(context).size.width * 0.6,
-      height: MediaQuery.of(context).size.height * 0.6,
+      width: min(MediaQuery.of(context).size.width * 0.6, 500),
+      height: min(MediaQuery.of(context).size.height * 0.6, 500),
       child: AspectRatio(
         aspectRatio: 1,
         child: CachedNetworkImage(
