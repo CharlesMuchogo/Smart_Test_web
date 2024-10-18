@@ -8,6 +8,7 @@ class Clinic {
   final String name;
   final String address;
   final String contacts;
+  final String description;
   final bool active;
 
   Clinic({
@@ -15,6 +16,7 @@ class Clinic {
     required this.name,
     required this.address,
     required this.contacts,
+    required this.description,
     required this.active,
   });
 

@@ -12,3 +12,9 @@ class GetClinics extends ClinicsEvent {
   final BuildContext context;
   const GetClinics({required this.context});
 }
+
+class CreateClinic extends ClinicsEvent {
+  final BuildContext context;
+  final CreateClinicRequestDto request;
+  const CreateClinic({required this.context, required this.request});
+}

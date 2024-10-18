@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'clinic.dart';
+part of 'create_clinic_request_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Clinic _$ClinicFromJson(Map<String, dynamic> json) => Clinic(
-      id: (json['id'] as num).toInt(),
+CreateClinicRequestDto _$CreateClinicRequestDtoFromJson(
+        Map<String, dynamic> json) =>
+    CreateClinicRequestDto(
       name: json['name'] as String,
       address: json['address'] as String,
       contacts: json['contacts'] as String,
       description: json['description'] as String,
-      active: json['active'] as bool,
     );
 
-Map<String, dynamic> _$ClinicToJson(Clinic instance) => <String, dynamic>{
-      'id': instance.id,
+Map<String, dynamic> _$CreateClinicRequestDtoToJson(
+        CreateClinicRequestDto instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'address': instance.address,
       'contacts': instance.contacts,
       'description': instance.description,
-      'active': instance.active,
     };

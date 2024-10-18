@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_app/bloc/Users/users_bloc.dart';
 import 'package:smart_app/domain/models/user.dart';
+import 'package:smart_app/presentation/components/AppProfileIcon.dart';
 import 'package:smart_app/presentation/components/CustomBox.dart';
 
 class UsersPage extends StatelessWidget {
@@ -13,7 +14,6 @@ class UsersPage extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<UsersBloc, UsersState>(
         builder: (context, state) {
-
           if (state.status == ResultsStatus.loading && state.users.isEmpty) {
             return const CenteredColumn(
               content: SizedBox(
@@ -30,21 +30,24 @@ class UsersPage extends StatelessWidget {
 
           if (state.status == ResultsStatus.loaded && state.users.isEmpty) {
             return const CenteredColumn(
-                content: Text("No users at the moment"),);
+              content: Text("No users at the moment"),
+            );
           }
 
-          List<User> users =  state.users.map((e) => User.fromJson(e)).toList();
+          List<User> users = state.users.map((e) => User.fromJson(e)).toList();
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: InteractiveViewer(
+              maxScale: 1,
+              minScale: 1,
+              constrained: false,
               child: DataTable(
                 border: TableBorder(
                     horizontalInside: BorderSide(
-                      width: 0.4,
-                      color: Colors.grey.shade200,
-                    )),
+                  width: 0.4,
+                  color: Colors.grey.shade200,
+                )),
                 headingRowColor: WidgetStateProperty.all(
                     const Color.fromRGBO(243, 244, 248, 100)),
                 columns: _buildColumns(context),
@@ -86,32 +89,30 @@ class UsersPage extends StatelessWidget {
     );
   }
 
-
   // Extract row building to a method
   List<DataRow> _buildRows(BuildContext context, List<User> results) {
     return results
         .asMap()
         .map(
           (index, user) {
-        return MapEntry(
-          index,
-          DataRow(cells: [
-            DataCell(Text('${index + 1}')),
-            DataCell(Text(user.firstName)),
-            DataCell(Text(user.firstName)),
-            DataCell(Text(user.lastName)),
-            DataCell(Text(user.phone)),
-            DataCell(Text(user.email)),
-            DataCell(Text(user.age)),
-            DataCell(Text(user.educationLevel)),
-            DataCell(Text(user.gender)),
-            DataCell(Text(user.testedBefore.toString())),
-          ]),
-        );
-      },
-    )
+            return MapEntry(
+              index,
+              DataRow(cells: [
+                DataCell(Text('${index + 1}')),
+                DataCell(AppProfileIcon(imageUrl: user.profilePhoto)),
+                DataCell(Text(user.firstName)),
+                DataCell(Text(user.lastName)),
+                DataCell(Text(user.phone)),
+                DataCell(Text(user.email)),
+                DataCell(Text(user.age)),
+                DataCell(Text(user.educationLevel)),
+                DataCell(Text(user.gender)),
+                DataCell(Checkbox(value: user.testedBefore, activeColor: Colors.blue ,onChanged: null)),
+              ]),
+            );
+          },
+        )
         .values
         .toList();
   }
-
 }

@@ -24,7 +24,6 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
   );
 
 
-
   showDialog(
     context: context,
     builder: (BuildContext context) {

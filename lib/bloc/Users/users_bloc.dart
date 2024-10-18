@@ -17,7 +17,11 @@ class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
   }
 
   void _onGetUsers(GetUsers event, Emitter<UsersState> emit) async {
-    emit(state.copyWith(status: ResultsStatus.loading));
+
+    if(state.status == ResultsStatus.initial){
+      emit(state.copyWith(status: ResultsStatus.loading));
+    }
+
     try {
 
       GetUsersDto results = await repository.getUsers();
