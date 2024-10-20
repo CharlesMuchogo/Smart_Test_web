@@ -32,7 +32,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
         "password": password,
       };
       Response response = await dio.post(
-        "/api/login",
+        "/admin/login",
         data: data,
       );
       return LoginResponseDTO.fromJson(response.data);
@@ -52,7 +52,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
 
     try {
       Response response = await dio.get(
-        "/api/mobile/results?all=$all",
+        "/admin/api/results",
         options: Options(
           headers: {'Authorization': HydratedBloc.storage.read("token") ?? ""},
         ),
@@ -93,7 +93,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
       {required UpdateTestResultsDTO resultsDTO}) async {
     try {
       Response response = await dio.put(
-        "/api/mobile/results",
+        "/admin/api/results",
         data: resultsDTO.toJson(),
         options: Options(
           headers: {'Authorization': HydratedBloc.storage.read("token") ?? ""},
@@ -116,7 +116,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
   Future<GetUsersDto> getUsers() async {
     try {
       Response response = await dio.get(
-        "/api/mobile/users",
+        "/admin/api/users",
         options: Options(
           headers: {'Authorization': HydratedBloc.storage.read("token") ?? ""},
         ),
@@ -137,7 +137,7 @@ class RemoteRepositoryImpl extends RemoteRepository {
       {required CreateClinicRequestDto request}) async {
     try {
       Response response = await dio.post(
-        "/api/mobile/clinics",
+        "/admin/api/clinics",
         data: request.toJson(),
         options: Options(
           headers: {'Authorization': HydratedBloc.storage.read("token") ?? ""},
