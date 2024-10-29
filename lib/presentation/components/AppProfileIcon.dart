@@ -23,7 +23,7 @@ class AppProfileIcon extends StatelessWidget {
         child:  AspectRatio(
           aspectRatio: 1,
           child: CachedNetworkImage(
-            imageUrl: imageUrl,
+            imageUrl: imageUrl.trim(),
             imageBuilder: (context, imageProvider) => Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
