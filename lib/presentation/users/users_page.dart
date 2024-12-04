@@ -4,6 +4,8 @@ import 'package:smart_app/bloc/Users/users_bloc.dart';
 import 'package:smart_app/domain/models/user.dart';
 import 'package:smart_app/presentation/components/AppProfileIcon.dart';
 import 'package:smart_app/presentation/components/CustomBox.dart';
+import 'package:smart_app/presentation/users/users_data_source.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class UsersPage extends StatelessWidget {
   const UsersPage({super.key});
@@ -12,51 +14,84 @@ class UsersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<UsersBloc>().add(GetUsers(context: context));
     return Scaffold(
-      body: BlocBuilder<UsersBloc, UsersState>(
-        builder: (context, state) {
-          if (state.status == ResultsStatus.loading && state.users.isEmpty) {
-            return const CenteredColumn(
-              content: SizedBox(
-                height: 25,
-                width: 25,
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-
-          if (state.status == ResultsStatus.error && state.users.isEmpty) {
-            return CenteredColumn(content: Text(state.message));
-          }
-
-          if (state.status == ResultsStatus.loaded && state.users.isEmpty) {
-            return const CenteredColumn(
-              content: Text("No users at the moment"),
-            );
-          }
-
-          List<User> users = state.users.map((e) => User.fromJson(e)).toList();
-
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: InteractiveViewer(
-              maxScale: 1,
-              minScale: 1,
-              constrained: false,
-              child: DataTable(
-                border: TableBorder(
-                    horizontalInside: BorderSide(
-                  width: 0.4,
-                  color: Colors.grey.shade200,
-                )),
-                headingRowColor: WidgetStateProperty.all(
-                    const Color.fromRGBO(243, 244, 248, 100)),
-                columns: _buildColumns(context),
-                rows: _buildRows(context, users),
-              ),
+      body: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
+        if (state.status == ResultsStatus.loading && state.users.isEmpty) {
+          return const CenteredColumn(
+            content: SizedBox(
+              height: 25,
+              width: 25,
+              child: CircularProgressIndicator(),
             ),
           );
-        },
-      ),
+        }
+
+        if (state.status == ResultsStatus.error && state.users.isEmpty) {
+          return CenteredColumn(content: Text(state.message));
+        }
+
+        if (state.status == ResultsStatus.loaded && state.users.isEmpty) {
+          return const CenteredColumn(
+            content: Text("No users at the moment"),
+          );
+        }
+
+        List<User> users = state.users.map((e) => User.fromJson(e)).toList();
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SfDataGrid(
+            columnWidthMode: ColumnWidthMode.fill,
+            allowColumnsResizing: true,
+            columnResizeMode: ColumnResizeMode.onResizeEnd,
+            source: UserDataSource(users),
+            isScrollbarAlwaysShown: true,
+            columns: [
+              GridColumn(
+                allowSorting: true,
+                columnName: 'No.',
+                label: const Center(child: Text('No.')),
+              ),
+              GridColumn(
+                columnName: 'Image',
+                label: const Center(child: Text('Image')),
+              ),
+              GridColumn(
+                columnName: 'FirstName',
+                label: const Center(child: Text('First Name')),
+              ),
+              GridColumn(
+                columnName: 'LastName',
+                label: const Center(child: Text('Last Name')),
+              ),
+              GridColumn(
+                columnName: 'Phone',
+                label: const Center(child: Text('Phone')),
+              ),
+              GridColumn(
+                columnName: 'Email',
+                width: 250,
+                label: const Center(child: Text('Email')),
+              ),
+              GridColumn(
+                columnName: 'Age',
+                label: const Center(child: Text('Age')),
+              ),
+              GridColumn(
+                columnName: 'Education Level',
+                label: const Center(child: Text('Education Level')),
+              ),
+              GridColumn(
+                columnName: 'Gender',
+                label: const Center(child: Text('Gender')),
+              ),
+              GridColumn(
+                columnName: 'Tested before',
+                label: const Center(child: Text('Tested Before')),
+              ),
+            ],
+          ),
+        );
+      }),
     );
   }
 
@@ -107,7 +142,10 @@ class UsersPage extends StatelessWidget {
                 DataCell(Text(user.age)),
                 DataCell(Text(user.educationLevel)),
                 DataCell(Text(user.gender)),
-                DataCell(Checkbox(value: user.testedBefore, activeColor: Colors.blue ,onChanged: null)),
+                DataCell(Checkbox(
+                    value: user.testedBefore,
+                    activeColor: Colors.blue,
+                    onChanged: null)),
               ]),
             );
           },
