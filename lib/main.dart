@@ -9,14 +9,20 @@ import 'package:smart_app/data/remote_repository.dart';
 import 'package:smart_app/data/remote_repository_impl.dart';
 import 'package:smart_app/presentation/authentication/LoginPage.dart';
 import 'package:smart_app/presentation/authentication/authenticationWrapper.dart';
+import 'package:smart_app/presentation/clinics/clinicsPage.dart';
 import 'package:smart_app/presentation/homepage/Homepage.dart';
+import 'package:smart_app/presentation/results/ResultsPage.dart';
+import 'package:smart_app/presentation/users/users_page.dart';
 
 import 'bloc/Login/login_bloc.dart';
 import 'bloc/Results/results_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+    runApp(ErrorWidget(details));
+  };
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage.webStorageDirectory
@@ -25,6 +31,27 @@ void main() async {
 
   runApp(MyApp());
 }
+
+class ErrorWidget extends StatefulWidget {
+  final FlutterErrorDetails errorDetails;
+  const ErrorWidget(this.errorDetails,{super.key});
+
+  @override
+  State<ErrorWidget> createState() => _ErrorWidgetState();
+}
+
+class _ErrorWidgetState extends State<ErrorWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Custom Error widget",
+      home: Center(
+        child: Text(widget.errorDetails.exceptionAsString()),
+      ),
+    );
+  }
+}
+
 
 class MyApp extends StatelessWidget {
  
@@ -58,6 +85,9 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => const AuthenticationWrapper(),
           '/login': (context) => const LoginPage(),
+          '/results': (context) => const ResultsPage(),
+          '/clinics': (context) => const ClinicsPage(),
+          '/users': (context) => const UsersPage(),
           '/home': (context) => const Homepage(),
         },
       ),
