@@ -28,34 +28,6 @@ class AppImage extends StatelessWidget {
                       ),
                     ),
                   )
-
-                  /*CachedNetworkImage(
-                  httpHeaders: const {
-                    'crossOrigin': 'anonymous',
-                  },
-                  imageUrl: "$baseUrl$image",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  placeholder: (context, url) => const Center(
-                    child: SizedBox(
-                      height: 25,
-                      width: 25,
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => const Center(
-                    child: Icon(
-                      Icons.image,
-                      size: 30,
-                    ),
-                  ),
-                ),*/
                   ),
             ),
           )

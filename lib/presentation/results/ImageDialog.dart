@@ -18,24 +18,10 @@ void showImageDialog(BuildContext context, String title, String imageUrl) {
       height: min(MediaQuery.of(context).size.height * 0.6, 500),
       child: AspectRatio(
         aspectRatio: 1,
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          imageBuilder: (context, imageProvider) => Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-          placeholder: (context, url) => const Center(
-            child: SizedBox(
-              height: 25,
-              width: 25,
-              child: CircularProgressIndicator(),
-            ),
-          ),
-          errorWidget: (context, url, error) => const Center(
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, url, error) => const Center(
             child: Icon(
               Icons.image,
               size: 30,

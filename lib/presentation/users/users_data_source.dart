@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_app/Utils/utils.dart';
 import 'package:smart_app/domain/models/user.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -15,8 +16,8 @@ class UserDataSource extends DataGridSource {
       return DataGridRow(cells: [
         DataGridCell(columnName: 'No.', value: users.length - index),
         DataGridCell(columnName: 'Image', value: user.profilePhoto),
-        DataGridCell(columnName: 'FirstName', value: user.firstName),
-        DataGridCell(columnName: 'LastName', value: user.lastName),
+        DataGridCell(columnName: 'FirstName', value: capitalize(user.firstName)),
+        DataGridCell(columnName: 'LastName', value: capitalize(user.lastName)),
         DataGridCell(columnName: 'Phone', value: user.phone),
         DataGridCell(columnName: 'Email', value: user.email),
         DataGridCell(columnName: 'Age', value: user.age),

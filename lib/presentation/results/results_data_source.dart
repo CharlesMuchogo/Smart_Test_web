@@ -19,7 +19,7 @@ class ResultsDataSource extends DataGridSource {
 
       return DataGridRow(cells: [
         DataGridCell(columnName: 'No.', value: results.length - index),
-        DataGridCell(columnName: 'User', value: "${result.user.firstName} ${result.user.lastName}"),
+        DataGridCell(columnName: 'User', value: "${capitalize(result.user.firstName)} ${capitalize(result.user.lastName)}"),
         DataGridCell(columnName: 'Date', value: result.date),
         DataGridCell(columnName: 'Results', value: result.results),
         DataGridCell(columnName: 'Result Image', value: result.image),
@@ -58,7 +58,7 @@ class ResultsDataSource extends DataGridSource {
               onClick: () {
                 showImageDialog(
                   context,
-                  "${row.getCells()[4].value.toString()} results",
+                  "${row.getCells()[1].value.toString()} results",
                   "$baseUrl${row.getCells()[4].value.toString()}",
                 );
               })),
@@ -76,7 +76,7 @@ class ResultsDataSource extends DataGridSource {
               onClick: () {
                 showImageDialog(
                   context,
-                  "${row.getCells()[4].value.toString()} partner results",
+                  "${row.getCells()[1].value.toString()} partner results",
                   "$baseUrl${row.getCells()[6].value.toString()}",
                 );
               })),
