@@ -29,7 +29,7 @@ class ResultsDataSource extends DataGridSource {
             ? result.careOption!
             : "N/A"),
         DataGridCell(columnName: 'Status', value: result.status),
-        DataGridCell(columnName: 'Action', value: result.results),
+        DataGridCell(columnName: 'Action', value: result),
       ]);
     }).toList();
   }
@@ -41,6 +41,9 @@ class ResultsDataSource extends DataGridSource {
 
   @override
   DataGridRowAdapter buildRow(DataGridRow row) {
+
+    final result = row.getCells()[9].value as TestResult;
+
     return DataGridRowAdapter(cells: [
       _buildDataCell(
           label: row.getCells()[0].value.toString(),
@@ -90,10 +93,10 @@ class ResultsDataSource extends DataGridSource {
     alignment: Alignment.center,
     child: IconButton(
       onPressed: () {
-        // showEditResultsDialog(
-        //   context,
-        //   result,
-        // );
+        showEditResultsDialog(
+          context,
+          result,
+        );
       },
       icon:  Icon(
         Icons.edit,
