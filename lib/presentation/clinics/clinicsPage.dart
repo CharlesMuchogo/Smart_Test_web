@@ -42,7 +42,7 @@ class ClinicsPage extends StatelessWidget {
       ),
       body: BlocBuilder<ClinicsBloc, ClinicsState>(
         builder: (context, state) {
-          if (state.status == ResultsStatus.loading && state.clinics.isEmpty) {
+          if (state.status == ClinicsStatus.loading && state.clinics.isEmpty) {
             return const CenteredColumn(
               content: SizedBox(
                 height: 25,
@@ -52,7 +52,7 @@ class ClinicsPage extends StatelessWidget {
             );
           }
 
-          if (state.status == ResultsStatus.error && state.clinics.isEmpty) {
+          if (state.status == ClinicsStatus.error && state.clinics.isEmpty) {
             return CenteredColumn(content: Text(state.message));
           }
 

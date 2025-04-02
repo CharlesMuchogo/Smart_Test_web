@@ -42,7 +42,7 @@ class UsersPage extends StatelessWidget {
         ],
       ),
       body: BlocBuilder<UsersBloc, UsersState>(builder: (context, state) {
-        if (state.status == ResultsStatus.loading && state.users.isEmpty) {
+        if (state.status == UsersBlocStatus.loading && state.users.isEmpty) {
           return const CenteredColumn(
             content: SizedBox(
               height: 25,
@@ -52,11 +52,11 @@ class UsersPage extends StatelessWidget {
           );
         }
 
-        if (state.status == ResultsStatus.error && state.users.isEmpty) {
+        if (state.status == UsersBlocStatus.error && state.users.isEmpty) {
           return CenteredColumn(content: Text(state.message));
         }
 
-        if (state.status == ResultsStatus.loaded && state.users.isEmpty) {
+        if (state.status == UsersBlocStatus.loaded && state.users.isEmpty) {
           return const CenteredColumn(
             content: Text("No users at the moment"),
           );

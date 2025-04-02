@@ -61,17 +61,29 @@ class _HomepageState extends State<Homepage> {
           children: [
             Row(
               children: [
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text("50 Results"),
-                  ),
-                ),
 
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("10 Clinics"),
+                    child: BlocBuilder<ResultsBloc, ResultsState>(
+                      builder: (context, state) {
+
+                        if (state.status == ResultsStatus.loaded || state.results.isNotEmpty) {
+                          return Text(
+                            "${state.results.length} Results",
+                          );
+                        }
+
+
+                        if (state.status == ResultsStatus.loading) {
+                          return SizedBox(height: 20, width: 20, child: CircularProgressIndicator());
+                        }
+
+                        return Text(
+                          "0 Results",
+                        );
+                      },
+                    ),
                   ),
                 ),
 
@@ -80,10 +92,56 @@ class _HomepageState extends State<Homepage> {
                 Card(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: Text("200 users"),
+                    child: BlocBuilder<ClinicsBloc, ClinicsState>(
+                      builder: (context, state) {
+
+                        if (state.status == ClinicsStatus.loaded || state.clinics.isNotEmpty) {
+                          return Text(
+                            "${state.clinics.length} Clinics",
+                          );
+                        }
+
+
+                        if (state.status == ClinicsStatus.loading) {
+                          return SizedBox(height: 20, width: 20, child: CircularProgressIndicator());
+                        }
+
+                        return Text(
+                          "0 Clinics",
+                        );
+                      },
+                    ),
                   ),
                 ),
 
+
+
+
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: BlocBuilder<UsersBloc, UsersState>(
+                      builder: (context, state) {
+
+                        if (state.status == UsersBlocStatus.loaded || state.users.isNotEmpty) {
+                          return Text(
+                            "${state.users.length} Users",
+                          );
+                        }
+
+
+                        if (state.status == UsersBlocStatus.loading) {
+                          return SizedBox(height: 20, width: 20, child: CircularProgressIndicator());
+                        }
+
+
+                        return Text(
+                          "0 Users",
+                        );
+                      },
+                    ),
+                  ),
+                ),
               ],
             )
           ],
