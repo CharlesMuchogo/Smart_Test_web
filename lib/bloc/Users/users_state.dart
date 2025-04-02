@@ -2,19 +2,19 @@ part of 'users_bloc.dart';
 
 class UsersState extends Equatable {
   final List users;
-  final ResultsStatus status;
+  final UsersBlocStatus status;
   final String message;
 
   const UsersState(
       {this.users = const [],
-      this.status = ResultsStatus.initial,
+      this.status = UsersBlocStatus.initial,
       this.message = ""}
       );
 
   UsersState copyWith({
     List? users,
     String? message,
-    ResultsStatus? status,
+    UsersBlocStatus? status,
   }) {
     return UsersState(
         users: users ?? this.users,
@@ -37,7 +37,7 @@ class UsersState extends Equatable {
 
     return UsersState(
       users: List.from((map['clinics'] as List)),
-      status: ResultsStatus.values[index],
+      status: UsersBlocStatus.values[index],
     );
   }
 
@@ -47,7 +47,7 @@ class UsersState extends Equatable {
       UsersState.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
-enum ResultsStatus {
+enum UsersBlocStatus {
   initial,
   loading,
   loaded,

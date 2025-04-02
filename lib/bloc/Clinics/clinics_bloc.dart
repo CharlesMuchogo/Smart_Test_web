@@ -20,41 +20,41 @@ class ClinicsBloc extends HydratedBloc<ClinicsEvent, ClinicsState> {
   }
 
   void _onGetClinics(GetClinics event, Emitter<ClinicsState> emit) async {
-    if (state.status == ResultsStatus.initial) {
-      emit(state.copyWith(status: ResultsStatus.loading));
+    if (state.status == ClinicsStatus.initial) {
+      emit(state.copyWith(status: ClinicsStatus.loading));
     }
 
     try {
       GetClinicsDto results = await repository.getClinics();
 
       emit(state.copyWith(
-          status: ResultsStatus.loaded,
+          status: ClinicsStatus.loaded,
           message: results.message,
           clinics: results.clinics.map((e) => e.toJson()).toList()));
     } catch (e) {
-      emit(state.copyWith(status: ResultsStatus.error, message: e.toString()));
+      emit(state.copyWith(status: ClinicsStatus.error, message: e.toString()));
     }
   }
 
   void _onCreateClinic(CreateClinic event, Emitter<ClinicsState> emit) async {
-    emit(state.copyWith(status: ResultsStatus.loading));
+    emit(state.copyWith(status: ClinicsStatus.loading));
     try {
       CreateClinicResponseDto results =
           await repository.createClinic(request: event.request);
 
       emit(
-        state.copyWith(status: ResultsStatus.success, message: results.message),
+        state.copyWith(status: ClinicsStatus.success, message: results.message),
       );
 
       GetClinicsDto clinicsResponse = await repository.getClinics();
 
       emit(state.copyWith(
-          status: ResultsStatus.loaded,
+          status: ClinicsStatus.loaded,
           message: results.message,
           clinics: clinicsResponse.clinics.map((e) => e.toJson()).toList()));
 
     } catch (e) {
-      emit(state.copyWith(status: ResultsStatus.failed, message: e.toString()));
+      emit(state.copyWith(status: ClinicsStatus.failed, message: e.toString()));
     }
   }
 
@@ -65,8 +65,8 @@ class ClinicsBloc extends HydratedBloc<ClinicsEvent, ClinicsState> {
 
   @override
   Map<String, dynamic>? toJson(ClinicsState state) {
-    if (state.status == ResultsStatus.loaded ||
-        state.status == ResultsStatus.success) {
+    if (state.status == ClinicsStatus.loaded ||
+        state.status == ClinicsStatus.success) {
       return state.toMap();
     }
     return null;

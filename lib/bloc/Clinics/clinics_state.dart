@@ -2,20 +2,20 @@ part of 'clinics_bloc.dart';
 
 class ClinicsState extends Equatable {
   final List clinics;
-  final ResultsStatus status;
+  final ClinicsStatus status;
   final String message;
   final bool loggedIn;
 
   const ClinicsState(
       {this.clinics = const [],
-      this.status = ResultsStatus.initial,
+      this.status = ClinicsStatus.initial,
       this.loggedIn = false,
       this.message = ""});
 
   ClinicsState copyWith({
     List? clinics,
     String? message,
-    ResultsStatus? status,
+    ClinicsStatus? status,
     bool? loggedIn,
   }) {
     return ClinicsState(
@@ -40,7 +40,7 @@ class ClinicsState extends Equatable {
 
     return ClinicsState(
       clinics: List.from((map['clinics'] as List)),
-      status: ResultsStatus.values[index],
+      status: ClinicsStatus.values[index],
     );
   }
 
@@ -50,7 +50,7 @@ class ClinicsState extends Equatable {
       ClinicsState.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
-enum ResultsStatus {
+enum ClinicsStatus {
   initial,
   loading,
   loaded,

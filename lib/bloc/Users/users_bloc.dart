@@ -18,8 +18,8 @@ class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
 
   void _onGetUsers(GetUsers event, Emitter<UsersState> emit) async {
 
-    if(state.status == ResultsStatus.initial){
-      emit(state.copyWith(status: ResultsStatus.loading));
+    if(state.status == UsersBlocStatus.initial){
+      emit(state.copyWith(status: UsersBlocStatus.loading));
     }
 
     try {
@@ -27,11 +27,11 @@ class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
       GetUsersDto results = await repository.getUsers();
 
       emit(state.copyWith(
-          status: ResultsStatus.loaded,
+          status: UsersBlocStatus.loaded,
           message: results.message,
           users: results.users.map((e) => e.toJson()).toList()));
     } catch (e) {
-      emit(state.copyWith(status: ResultsStatus.error, message: e.toString()));
+      emit(state.copyWith(status: UsersBlocStatus.error, message: e.toString()));
     }
   }
 
@@ -42,8 +42,8 @@ class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
 
   @override
   Map<String, dynamic>? toJson(UsersState state) {
-    if (state.status == ResultsStatus.loaded ||
-        state.status == ResultsStatus.success) {
+    if (state.status == UsersBlocStatus.loaded ||
+        state.status == UsersBlocStatus.success) {
       return state.toMap();
     }
     return null;

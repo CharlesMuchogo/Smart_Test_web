@@ -50,7 +50,7 @@ void showAddClinicDialog(BuildContext context) {
                       controller: descriptionController),
                   BlocBuilder<ClinicsBloc, ClinicsState>(
                     builder: (context, state) {
-                      if (state.status == ResultsStatus.failed) {
+                      if (state.status == ClinicsStatus.failed) {
                         return Text(
                           state.message,
                           style: TextStyle(
@@ -88,12 +88,12 @@ void showAddClinicDialog(BuildContext context) {
             },
             child: BlocConsumer<ClinicsBloc, ClinicsState>(
               listener: (context, state) {
-                if (state.status == ResultsStatus.success) {
+                if (state.status == ClinicsStatus.success) {
                   Navigator.of(context).pop();
                 }
               },
               builder: (context, state) {
-                if (state.status == ResultsStatus.loading) {
+                if (state.status == ClinicsStatus.loading) {
                   return const SizedBox(
                     height: 25,
                     width: 25,
