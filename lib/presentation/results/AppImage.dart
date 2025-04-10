@@ -10,6 +10,9 @@ class AppImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String imageUrl = image.startsWith("http") ? image : "$baseUrl$image";
+
     return image.isNotEmpty
         ? GestureDetector(
             onTap: onClick,
@@ -19,14 +22,17 @@ class AppImage extends StatelessWidget {
               child: AspectRatio(
                   aspectRatio: 1,
                   child: Image.network(
-                    "$baseUrl$image",
+                    imageUrl,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, url, error) => const Center(
-                      child: Icon(
-                        Icons.image,
-                        size: 30,
-                      ),
-                    ),
+                    errorBuilder: (context, url, error){
+                      print("loading image error $imageUrl");
+                      return const Center(
+                        child: Icon(
+                          Icons.image,
+                          size: 30,
+                        ),
+                      );
+                    },
                   )
                   ),
             ),
