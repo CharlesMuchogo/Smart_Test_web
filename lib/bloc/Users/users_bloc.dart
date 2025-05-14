@@ -18,7 +18,7 @@ class UsersBloc extends HydratedBloc<UsersEvent, UsersState> {
 
   void _onGetUsers(GetUsers event, Emitter<UsersState> emit) async {
 
-    if(state.status == UsersBlocStatus.initial){
+    if(state.users.isEmpty){
       emit(state.copyWith(status: UsersBlocStatus.loading));
     }
 
