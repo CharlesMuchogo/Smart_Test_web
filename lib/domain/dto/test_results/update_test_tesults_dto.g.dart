@@ -13,6 +13,7 @@ UpdateTestResultsDTO _$UpdateTestResultsDTOFromJson(
       results: json['results'] as String,
       partnerResults: json['partnerResults'] as String,
       status: json['status'] as String,
+      reason: json['reason'] as String,
     );
 
 Map<String, dynamic> _$UpdateTestResultsDTOToJson(
@@ -22,4 +23,5 @@ Map<String, dynamic> _$UpdateTestResultsDTOToJson(
       'results': instance.results,
       'partnerResults': instance.partnerResults,
       'status': instance.status,
+      'reason': instance.reason,
     };

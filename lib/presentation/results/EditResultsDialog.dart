@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_app/presentation/components/AppTextField.dart';
 
 import '../../bloc/Results/results_bloc.dart';
 import '../../domain/dto/test_results/update_test_tesults_dto.dart';
@@ -10,19 +11,20 @@ import 'enums.dart';
 
 void showEditResultsDialog(BuildContext context, TestResult result) {
   ResultStatus selectedResultStatus = ResultStatus.values.firstWhere(
-        (e) => e.label == result.results,
+    (e) => e.label == result.results,
     orElse: () => ResultStatus.Negative,
   );
   PartnerResult selectedPartnerResult = PartnerResult.values.firstWhere(
-        (e) => e.label == result.partnerResults,
+    (e) => e.label == result.partnerResults,
     orElse: () => PartnerResult.Negative,
   );
 
   ApprovalStatus selectedApprovalStatus = ApprovalStatus.values.firstWhere(
-        (e) => e.label == (result.status),
+    (e) => e.label == (result.status),
     orElse: () => ApprovalStatus.Approved,
   );
 
+  TextEditingController reasonController = TextEditingController();
 
   showDialog(
     context: context,
@@ -41,7 +43,7 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
                     "Result",
                     selectedResultStatus,
                     ResultStatus.values,
-                        (newValue) {
+                    (newValue) {
                       setState(() {
                         selectedResultStatus = newValue;
                       });
@@ -52,7 +54,7 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
                     "Partner Result",
                     selectedPartnerResult,
                     PartnerResult.values,
-                        (newValue) {
+                    (newValue) {
                       setState(() {
                         selectedPartnerResult = newValue;
                       });
@@ -63,12 +65,22 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
                     "Status",
                     selectedApprovalStatus,
                     ApprovalStatus.values,
-                        (newValue) {
+                    (newValue) {
                       setState(() {
                         selectedApprovalStatus = newValue;
                       });
                     },
                   ),
+
+                  Padding(padding: const EdgeInsets.symmetric(vertical: 12), child:  AppTextField(
+                    label: "Reason",
+                    textInputType: TextInputType.text,
+                    icon: null,
+                    maxLines: 5,
+                    onSaved: (){},
+                    controller: reasonController,
+                  ))
+                 ,
                   BlocBuilder<ResultsBloc, ResultsState>(
                     builder: (context, state) {
                       if (state.status == ResultsStatus.failed) {
@@ -102,6 +114,7 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
                       uuid: result.uuid,
                       results: selectedResultStatus.name,
                       partnerResults: selectedPartnerResult.name,
+                      reason: reasonController.text,
                       status: selectedApprovalStatus.name)));
             },
             child: BlocConsumer<ResultsBloc, ResultsState>(
@@ -129,12 +142,12 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
 }
 
 Widget _buildDropdown<T>(
-    BuildContext context,
-    String label,
-    T selectedValue,
-    List<T> items,
-    Function(T) onChanged,
-    ) {
+  BuildContext context,
+  String label,
+  T selectedValue,
+  List<T> items,
+  Function(T) onChanged,
+) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 8.0),
     child: Row(
@@ -146,7 +159,8 @@ Widget _buildDropdown<T>(
           items: items.map((T value) {
             return DropdownMenuItem<T>(
               value: value,
-              child: Text(value.toString().split('.').last), // Show the enum label
+              child:
+                  Text(value.toString().split('.').last), // Show the enum label
             );
           }).toList(),
           onChanged: (T? newValue) {
