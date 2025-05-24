@@ -6,6 +6,7 @@ class AppTextField extends StatefulWidget {
       this.hint,
       this.isPassword = false,
       this.obscureText = false,
+      this.maxLines = 1,
       required this.label,
       required this.textInputType,
       required this.icon,
@@ -14,11 +15,12 @@ class AppTextField extends StatefulWidget {
       this.onHidePassword});
 
   final String? hint;
+  final int? maxLines;
   final String label;
   final bool isPassword;
   final bool obscureText;
   final TextInputType textInputType;
-  final Icon icon;
+  final Icon? icon;
   final VoidCallback? onSaved;
   final VoidCallback? onHidePassword;
   final TextEditingController controller;
@@ -43,6 +45,7 @@ class _AppTextFieldState extends State<AppTextField> {
         TextFormField(
           controller: widget.controller,
           keyboardType: widget.textInputType,
+          maxLines: widget.maxLines,
           decoration: InputDecoration(
             hintText: widget.hint,
             prefixIcon: widget.icon,

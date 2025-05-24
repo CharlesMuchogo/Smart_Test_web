@@ -9,6 +9,7 @@ class User {
   final String lastName;
   final String phone;
   final String email;
+  final String country;
   final String profilePhoto;
   final String age;
   final String educationLevel;
@@ -21,6 +22,7 @@ class User {
     required this.lastName,
     required this.phone,
     required this.email,
+    required this.country,
     required this.profilePhoto,
     required this.age,
     required this.educationLevel,

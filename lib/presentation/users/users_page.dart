@@ -71,7 +71,7 @@ class UsersPage extends StatelessWidget {
             allowColumnsResizing: true,
             allowSorting: true,
             selectionMode: SelectionMode.multiple,
-            source: UserDataSource(users),
+            source: UserDataSource(users, context),
             isScrollbarAlwaysShown: true,
             columns: [
               GridColumn(
@@ -81,6 +81,7 @@ class UsersPage extends StatelessWidget {
               ),
               GridColumn(
                 columnName: 'Image',
+                width: 130,
                 label: const Center(child: Text('Image')),
               ),
               GridColumn(
@@ -111,6 +112,10 @@ class UsersPage extends StatelessWidget {
               GridColumn(
                 columnName: 'Gender',
                 label: const Center(child: Text('Gender')),
+              ),
+              GridColumn(
+                columnName: 'Country',
+                label: const Center(child: Text('Country')),
               ),
               GridColumn(
                 columnName: 'Tested before',
