@@ -10,7 +10,6 @@ class AppProfileIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("Image url $imageUrl");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: GestureDetector(
