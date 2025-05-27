@@ -1,7 +1,7 @@
 // enums.dart
 
-enum ResultStatus { Positive, Negative, Invalid }
-enum PartnerResult { Positive, Negative, Invalid }
+enum ResultStatus { NA, Positive, Negative, Invalid }
+enum PartnerResult { NA, Positive, Negative, Invalid }
 enum ApprovalStatus { Approved, Rejected }
 
 extension ResultStatusExtension on ResultStatus {
@@ -13,6 +13,8 @@ extension ResultStatusExtension on ResultStatus {
         return "Negative";
       case ResultStatus.Invalid:
         return "Invalid";
+      case ResultStatus.NA:
+        return "";
     }
   }
 }
@@ -26,6 +28,8 @@ extension PartnerResultExtension on PartnerResult {
         return "Negative";
       case PartnerResult.Invalid:
         return "Invalid";
+      case PartnerResult.NA:
+        return "";
     }
   }
 }

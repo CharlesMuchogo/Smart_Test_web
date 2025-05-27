@@ -30,7 +30,7 @@ class ResultsDataSource extends DataGridSource {
         DataGridCell(columnName: 'Partner Image', value: result.partnerImage),
         DataGridCell(
             columnName: 'Care Option',
-            value: result.careOption != null ? result.careOption! : "N/A"),
+            value: result.care_option.isNotEmpty ? result.care_option : "N/A"),
         DataGridCell(columnName: 'Status', value: result.status),
         DataGridCell(columnName: 'Action', value: result),
       ]);
