@@ -11,7 +11,7 @@ class TestResult {
   final String partnerResults;
   final String image;
   final String partnerImage;
-  final String? careOption;
+  final String care_option;
   final String status;
   final String date;
   final User user;
@@ -24,7 +24,7 @@ class TestResult {
     required this.image,
     required this.status,
     required this.partnerImage,
-    this.careOption,
+    required this.care_option,
     required this.user,
     required this.date,
   });
