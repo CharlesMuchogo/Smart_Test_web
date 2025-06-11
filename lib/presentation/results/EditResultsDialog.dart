@@ -24,7 +24,7 @@ void showEditResultsDialog(BuildContext context, TestResult result) {
     orElse: () => ApprovalStatus.Approved,
   );
 
-  TextEditingController reasonController = TextEditingController();
+  TextEditingController reasonController = TextEditingController(text: result.reason);
 
   showDialog(
     context: context,
