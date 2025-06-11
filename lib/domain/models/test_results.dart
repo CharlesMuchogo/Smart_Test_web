@@ -12,6 +12,7 @@ class TestResult {
   final String image;
   final String partnerImage;
   final String care_option;
+  final String reason;
   final String status;
   final String date;
   final User user;
@@ -25,6 +26,7 @@ class TestResult {
     required this.status,
     required this.partnerImage,
     required this.care_option,
+    required this.reason,
     required this.user,
     required this.date,
   });
